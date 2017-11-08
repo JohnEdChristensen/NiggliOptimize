@@ -1,0 +1,15 @@
+create a list of all possible point groups or a given basis
+
+compare this list to a list of another basis to see if they have any point groups in common
+
+possibly automate for every niggli basis 
+
+----------------------------------------------------------------------------------
+Create a list of objects for every basis that includes:
+the index for the detOf1 Transform
+The transformed basis matrix as a numpy matrix
+The number of point group generators
+The point group generators
+A function that takes in pg generators and returns a one if it is identical to its own
+a string that denotes the niggle basis and lattice type
+
