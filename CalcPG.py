@@ -3,12 +3,13 @@ import numpy
 from MatrixTools import *
 basis = numpy.loadtxt("Data/NiggliTransforms/n41_mC_Transformed.txt")
 basis = numpy.reshape(basis,(len(basis)/3,3,3))
-enumOut = []
+PGOut = []
 pgList = []
-for e in basis:
-	editStructEnum(e)
+for i in range(0,len(basis)):
+	editStructEnum(basis[i])
 	os.system("pg.x > pgx_out.txt")
-	enumOut.append(readStrucEnum())
-	for i in enumOut:
-	    pgList.append(i)
+	PGOut =readPGOut()
+	for j in PGOut:
+		pgList.append(j)
+#print pgList
 saveMatrix(pgList,0,len(pgList),"Data/NiggliPGs/n41_mC_PGs.txt")

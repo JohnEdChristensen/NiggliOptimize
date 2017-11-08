@@ -56,6 +56,6 @@ for n in range(0,len(transformed)):
 	print ""
 	editStructEnum(transformed[n])
 	os.system("pg.x > pgx_out.txt")
-	matrixList = readStrucEnum()
+	matrixList = readPGOut()
 	size = len(matrixList)
 	printMathematicaCode(matrixList,size)

@@ -59,7 +59,7 @@ def editStructEnum(matrix):
 	structData[4] = str (matrix[2][0]) + "\t" + str (matrix[2][1]) + "\t" + str (matrix[2][2]) + "\n"
 	with open('struct_enum.in', 'w') as struct_enum:
 		struct_enum.writelines(structData)
-def readStrucEnum():
+def readPGOut():
 	file = open("pgx_out.txt","r")
 	size = float (file.readline().split()[2])
 	size = math.log(size,2)
