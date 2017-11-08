@@ -55,7 +55,7 @@ for n in range(0,len(transformed)):
 	print "a3 = {" + str (transformed[n][2][0]) + ", " + str (transformed[n][2][1]) + ", " + str (transformed[n][2][2]) + "}"
 	print ""
 	editStructEnum(transformed[n])
-	os.system("pg.x > pgx_out.txt")
+	os.system("../kgrid_gen/pg.x > pgx_out.txt")
 	matrixList = readPGOut()
 	size = len(matrixList)
 	printMathematicaCode(matrixList,size)
