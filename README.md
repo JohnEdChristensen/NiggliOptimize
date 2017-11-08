@@ -1,2 +1,3 @@
 # NiggliOptimize
-This Repo contains code written to find alternative basis for Niggli basis in order to find computaionaly less exspensive solutions
+This Repo contains code written to find alternative basis for Niggli basis in order to find computaionaly less exspensive solutions.
+Data Contains Large lists of Niggli basis that have been transformed by many rotational matricies.
