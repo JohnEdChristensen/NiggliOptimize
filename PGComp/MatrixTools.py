@@ -62,7 +62,12 @@ def editStructEnum(matrix):
 def readPGOut():
 	file = open("pgx_out.txt","r")
 	size = float (file.readline().split()[2])
-	size = math.log(size,2)
+
+	if(size == 4):
+		size = 2
+	if (size == 8 or size == 16):
+		size = 3
+	
 	matrixList = []
 
 	for i in range(0,int (size)):
@@ -72,7 +77,9 @@ def readPGOut():
 		row3 = file.readline()
 		matrixList.append(createMatrix(row1,row2,row3))
 	matrixList = matrixFloatToInt(matrixList)
+	file.close
 	return matrixList
+
 def matrixFloatToInt(matrixList):
 	x = 0
 	y = 0
