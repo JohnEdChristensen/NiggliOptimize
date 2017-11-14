@@ -27,7 +27,7 @@ def test_editStrucEnum():
 
 def test_readPGOut():
     editStructEnum("struct_enum.in",[[1,0,0],[0,1,0],[0,0,1]])
-    os.system("../kgrid_gen/pg.x > tests/pgx_out.txt")
+    os.system("pg.x > tests/pgx_out.txt")
     with open('tests/TestPGOut1.txt', 'r') as PGOutData:
         expectedData1 = PGOutData.readlines()
     with open('tests/pgx_out.txt', 'r') as PGOutData:
