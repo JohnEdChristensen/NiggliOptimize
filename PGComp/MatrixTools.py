@@ -54,7 +54,7 @@ def editStructEnum(structPath,matrix):
     with open(structPath, 'w') as struct_enum:
         struct_enum.writelines(structData)
 def readPGOut(pgxPath):
-    file = open("pgxPath","r")
+    file = open(pgxPath,"r")
     size = float (file.readline().split()[2])
     if(size == 4 or size == 48):
         size = 2

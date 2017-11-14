@@ -26,12 +26,8 @@ def test_editStrucEnum():
     assert structData2 == expectedStructData2
 
 def test_readPGOut():
-    editStructEnum("struct_enum.in",[[1,0,0],[0,1,0],[0,0,1]])
-    os.system("pg.x > tests/pgx_out.txt")
-    with open('tests/TestPGOut1.txt', 'r') as PGOutData:
-        expectedData1 = PGOutData.readlines()
-    with open('tests/pgx_out.txt', 'r') as PGOutData:
-        Data1 = PGOutData.readlines()
+    Data1 = readPGOut("tests/pgx_out.txt")
+    expectedData1 = [[[-1,0,0],[0,0,-1],[0,-1,0]],[[0,0,1],[-1,0,0],[0,1,0]]]
     assert expectedData1 == Data1
 def test_CalculateTransformations():
     identity = [[1,0,0],[0,1,0],[0,0,1]]
