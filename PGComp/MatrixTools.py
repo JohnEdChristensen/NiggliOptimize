@@ -1,7 +1,7 @@
 import numpy
 import math
 import os
-def CalculateTransformations(transform,basis):
+def CalculateTransform(transform,basis):
 	basis = numpy.transpose(basis)
 	transformedMatrix = numpy.dot(transform,basis)
 	return numpy.transpose(transformedMatrix).tolist()
@@ -25,25 +25,11 @@ def detIsN(expectedDeterminent,m):
     """
     det = numpy.linalg.det(m)
     return(det == expectedDeterminent)
-
-def checkForDuplicates(m):
-    """
-        Determines if there are any duplicates in the list of matricies m
-    """
-    x = 0
-    for i in m:
-        y = 0
-        for j in m:
-            if(numpy.array_equal(i,j) and x != y):
-                print "Duplicate found in elements:"
-                print str(x) + "," + str(y)
-            y = y + 1
-        x = x + 1
+        
 	
-def saveMatrix(matrixIn,startPos,endPos,writeLocation):
-    matrixSave = matrixIn[startPos:endPos]
-    numpy.savetxt(writeLocation,numpy.vstack(matrixSave),fmt ='%-8f')
-    print "Saved " + str (len(matrixSave)) + " Matricies to " + writeLocation
+def saveMatrix(matrixIn,writeLocation):
+    numpy.savetxt(writeLocation,numpy.vstack(matrixIn),fmt ='%-8f')
+    print "Saved " + str (len(matrixIn)) + " Matricies to " + writeLocation
 	
 def editStructEnum(structPath,matrix):
     with open(structPath, 'r') as struct_enum:
@@ -69,17 +55,18 @@ def readPGOut(pgxPath):
         row2 = file.readline()
         row3 = file.readline()
         matrixList.append(createMatrix(row1,row2,row3))
-    matrixList = matrixFloatToInt(matrixList)
+    intMatrixList = []
+    for e in matrixList:
+        intMatrixList.append(matrixFloatToInt(e))
     file.close
-    return matrixList
+    return intMatrixList
 
-def matrixFloatToInt(matrixList):
-    for i in range(len(matrixList)):
+def matrixFloatToInt(matrix):
+    for i in range(0,3):
         for j in range(0,3):
-            for k in range(0,3):
-                matrixList[i][j][k] = int (round(matrixList[i][j][k],0))
-    return matrixList
+                matrix[i][j] = int (round(matrix[i][j],0))
+    return matrix
 def generatePG(basis):
     editStructEnum(basis)
-    os.system("../../kgrid_gen/pg.x > pgx_out.txt")
+    os.system("pg.x > pgx_out.txt")
     return readPGOut()
