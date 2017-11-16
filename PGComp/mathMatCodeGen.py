@@ -51,7 +51,7 @@ def FormatBasis(basis):
     output += "a2 = {" + str (basis[1][0]) + "," + str (basis[1][1]) + "," + str (basis[1][2]) + "}" + "\n"
     output += "a3 = {" + str (basis[2][0]) + "," + str (basis[2][1]) + "," + str (basis[2][2]) + "}" + "\n"
     return output
-def GenMatCode(basis):
+def GenMatCode(basis):#pragma: no cover
     editStructEnum(basis)
     os.system("pg.x > pgx_out.txt")
     matrixList = readPGOut()
