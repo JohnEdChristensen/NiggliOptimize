@@ -8,7 +8,7 @@ from MatrixTools import *
     a determinent of 1 or -1.
 """
 
-def createNxNMatricies(n):
+def CreateNxNMatricies(n):
     """
         Returns a list of all possible nxn matricies with coeficcients of
         -1, 0, or 1
@@ -21,22 +21,11 @@ def createNxNMatricies(n):
        
     print "Created " + str (len(matrixForm)) + " Matricies"
     return matrixForm
-
-def detIsN(expectedDeterminent,m):
-    """
-        returns a 1 if nxn matrix m has a determinent equal to expectedDeterminent
-        returns a zero otherwise
-    """
-    det = numpy.linalg.det(m)
-    if(det == expectedDeterminent):
-        return 1
-    else:
-        return 0
-        
+            
 detOfOne = []
 detOfNegOne = []
 detOfBoth = []
-matricies = createNxNMatricies(3)
+matricies = CreateNxNMatricies(3)
 for e in matricies:
     if(detIsN(1,e)):
         detOfBoth.append(e)
@@ -48,13 +37,7 @@ for e in matricies:
 print "Deteriminents of 1: "  + str (len(detOfOne))
 print "Deteriminents of -1: "  + str (len(detOfNegOne))
 print "Total: " + str (len(detOfBoth))
-saveMatrix(detOfBoth,0,len(detOfBoth),"Data/AllDetOfOne.txt")
+saveMatrix(detOfBoth,"PGComp/Data/AllDetOfOne.txt")
 
-"""
-print "Checking for Duplicates"
-checkForDuplicates(detOfOne)
-print "Continueing..."
-checkForDuplicates(detOfNegOne)
-"""
 
         
