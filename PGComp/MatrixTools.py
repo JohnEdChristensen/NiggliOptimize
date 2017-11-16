@@ -66,7 +66,7 @@ def matrixFloatToInt(matrix):
         for j in range(0,3):
                 matrix[i][j] = int (round(matrix[i][j],0))
     return matrix
-def generatePG(basis):
+def generatePG(basis): #pragma: no cover
     editStructEnum(basis)
     os.system("pg.x > pgx_out.txt")
     return readPGOut()
