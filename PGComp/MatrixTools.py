@@ -2,9 +2,10 @@ import numpy
 import math
 import os
 def CalculateTransform(transform,basis):
-	basis = numpy.transpose(basis)
+	#basis = numpy.transpose(basis)
 	transformedMatrix = numpy.dot(transform,basis)
-	return numpy.transpose(transformedMatrix).tolist()
+	#return numpy.transpose(transformedMatrix).tolist()
+	return transformedMatrix
 def createMatrix(s1,s2,s3):
     """
     takes in 3 strings of 3 numbers seperated by commas
@@ -67,6 +68,16 @@ def matrixFloatToInt(matrix):
                 matrix[i][j] = int (round(matrix[i][j],0))
     return matrix
 def generatePG(basis): #pragma: no cover
-    editStructEnum(basis)
+    editStructEnum("struct_enum.in",basis)
     os.system("pg.x > pgx_out.txt")
-    return readPGOut()
+    return readPGOut("pgx_out.txt")
+def checkSimilarities(mList1,mList2):
+    similarities = 0
+    n=0
+    for i in range(0,len(mList1)):
+        for j in range(n,len(mList2)):
+            n+=1
+       	    if (numpy.array_equal(mList1[i], mList2[j])):
+                similarities +=1
+    return similarities
+    

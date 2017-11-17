@@ -35,13 +35,13 @@ def test_readPGOut():
 def test_CalculateTransform():
     identity = [[1,0,0],[0,1,0],[0,0,1]]
     m1 = [[1,2,3],[4,5,6],[7,8,9]]
-    transform1 = [[1,1,0],[1,1,0],[1,0,1]]
+    transform1 = [[0,0,1],[0,1,0],[1,0,0]]
     transform2 = [[1,1,5],[1,1,0],[1,5,1]]
     assert numpy.array_equal(identity,CalculateTransform(identity,identity))
-    assert numpy.array_equal(numpy.transpose(m1).tolist(),CalculateTransform(m1,identity))
+    assert numpy.array_equal(m1,CalculateTransform(m1,identity))
     assert numpy.array_equal(m1,CalculateTransform(identity,m1))
-    assert numpy.array_equal([[3,3,4],[9,9,10],[15,15,16]],CalculateTransform(transform1,m1))
-    assert numpy.array_equal([[18,3,14],[39,9,35],[60,15,56]],CalculateTransform(transform2,m1))
+    assert numpy.array_equal([[7,8,9],[4,5,6],[1,2,3]],CalculateTransform(transform1,m1))
+    assert numpy.array_equal([[40,47,54],[5,7,9],[28,35,42]],CalculateTransform(transform2,m1))
 def test_createMatrix():
     identity = [[1,0,0],[0,1,0],[0,0,1]]
     m1 = [[1.1,0,0],[0,-.1,0],[0,0,-0]]
@@ -67,5 +67,8 @@ def test_matrixFloatToInt():
     assert numpy.array_equal(identity,matrixFloatToInt(identity))
     m1 = [[1.01,0.00001,0],[0,.9999999,0],[0,0.000005,1]]
     assert numpy.array_equal(identity,matrixFloatToInt(m1))
+def test_checkSimilarities():
+    identity = [[1,0,0],[0,1,0],[0,0,1]]
+    assert 2 == checkSimilarities([identity,identity],[identity,identity])
     
 

@@ -13,7 +13,9 @@ for i in range(0,numOfLines/2):
     basis = nBasisFile.readline()
     niggliID = niggliID.rstrip()
     basis = ast.literal_eval(basis)
-    transformed = CalculateTransformations(basis,transformations)
-    saveMatrix(transformed,0,len(transformed),"Data/NiggliTransforms/" + niggliID + "_Transformed.txt")
+    transformed = []
+    for transform in transformations:
+        transformed.append(CalculateTransform(transform,basis))
+    saveMatrix(transformed,"Data/NiggliTransforms/" + niggliID + "_Transformed.txt")
     
 nBasisFile.close()
