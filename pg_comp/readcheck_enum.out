@@ -1,0 +1,17 @@
+Title: Sypgstem                                                                        
+Lattice type (bulk or surface): BULK
+  1.000  -0.342   1.449
+  1.000   1.342  -0.949
+  0.000   2.020   1.000
+Number of labels:  2
+Number of d-vectors:   1
+  0.0000   0.0000   0.0000 0/1/
+Min and Max cell sizes:  1 **
+Epsilon:   0.1000E-02
+full/part mode: PART
+Concentration ranges are specified. Will run with using  the fixed-concentration algorithm.
+Type 1 conc: 5/10-- 5/10
+Type 2 conc: 5/10-- 5/10
+
+--<< Successfully read the struct_enum.in file >>--
+
