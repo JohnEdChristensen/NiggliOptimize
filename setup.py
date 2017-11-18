@@ -17,7 +17,7 @@ except ImportError:
     read_md = lambda f: open(f, 'r').read()
 
 from os import path
-setup(name='PGComp',
+setup(name='pg_comp',
       version='0.0.1',
       description='Working on finding optimal transformed Niggli Basis to improve computation time',
       long_description= "" if not path.isfile("README.md") else read_md('README.md'),
@@ -30,7 +30,7 @@ setup(name='PGComp',
       install_requires=[
           "numpy",
       ],
-      packages=['PGComp'],
+      packages=['pg_comp'],
       # scripts=[''],
       include_package_data=True,
       classifiers=[
