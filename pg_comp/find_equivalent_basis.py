@@ -2,7 +2,7 @@ from math_mat_code_gen import *
 from opf_python import niggli_lat_id
 import numpy
 
-basis = [[1, 1, 0], [1.61803, -0.618034, 1], [-0.666125, 1.16613, 2.04852]]
+basis = [[1.0,-1.0,1.0], [-1.46391,0.0,1.96391], [-2.0,0.0,-2.0]]
 print niggli_lat_id.niggli_id(numpy.transpose(basis))
 print
 print format_basis(basis)

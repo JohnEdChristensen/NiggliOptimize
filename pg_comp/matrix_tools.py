@@ -51,7 +51,7 @@ def edit_struct_enum(struct_path, matrix):
 def read_pg_out(pgx_path):
     pgx_path = open(pgx_path, "r")
     size = float(pgx_path.readline().split()[2])
-    if size == 4 or size == 48:
+    if size == 4 or size == 48 or size == 12:
         size = 2
     if size == 8 or size == 16:
         size = 3
@@ -113,3 +113,13 @@ def find_equivalent_basis(basis, degenerate_label):  # pragma: no cover
         if numpy.array_equal(pg, pg_data[i]):
             return transform_data[i]
     return 0
+def load_pg_list(label):
+    pg_data = numpy.loadtxt("Data/NiggliPGs/" + label + "_PGs.txt")
+    size = len(pg_data) / 6960 / 3
+    pg_data = numpy.reshape(pg_data, (6960, size, 3, 3))
+    return pg_data
+def load_transform_list(label):
+    transform_data = numpy.loadtxt("Data/NiggliTransforms/" + label + "_Transformed.txt")
+    #size = len(transform_data) / 6960 / 3
+    transform_data = numpy.reshape(transform_data, (6960, 3, 3))
+    return transform_data

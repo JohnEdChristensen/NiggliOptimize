@@ -1,0 +1,4 @@
+from math_mat_code_gen import *
+label = "n43_mI"
+size = 5
+print_pg_as_mat(label, size)
