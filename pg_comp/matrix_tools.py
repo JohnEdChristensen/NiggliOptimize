@@ -123,3 +123,39 @@ def load_transform_list(label):
     #size = len(transform_data) / 6960 / 3
     transform_data = numpy.reshape(transform_data, (6960, 3, 3))
     return transform_data
+def get_URT(pg):
+    """ takes in 2 or 3 3x3 matricies
+        returns one if all have 0's in the upper rigth of the matrix
+        returns a 0 otherwise
+    """
+    size = len(pg)
+    if size == 2:
+        condition12 = (pg[0][0][1] == 0) and (pg[1][0][1] == 0)
+        condition13 = (pg[0][0][2] == 0) and (pg[1][0][2] == 0)
+        condition23 = (pg[0][1][2] == 0) and (pg[1][1][2] == 0)
+        if condition12 and condition13 and condition23:
+            return 1
+    if size == 3:
+        condition12 = (pg[0][0][1] == 0) and (pg[1][0][1] == 0) and (pg[2][0][1] == 0)
+        condition13 = (pg[0][0][2] == 0) and (pg[1][0][2] == 0) and (pg[2][0][2] == 0)
+        condition23 = (pg[0][1][2] == 0) and (pg[1][1][2] == 0) and (pg[2][1][2] == 0)
+        if condition12 and condition13 and condition23:
+            return 1
+    return 0
+def get_simple_pgs(pg):
+    """ takes in 2 or 3 3x3 matricies
+        returns one if all have 0's in positions x12 and x13
+        returns a 0 otherwise
+    """
+    size = len(pg)
+    if size == 2:
+        condition12 = (pg[0][0][1] == 0) and (pg[1][0][1] == 0)
+        condition13 = (pg[0][0][2] == 0) and (pg[1][0][2] == 0)
+        if condition12 and condition13:
+            return 1
+    if size == 3:
+        condition12 = (pg[0][0][1] == 0) and (pg[1][0][1] == 0) and (pg[2][0][1] == 0)
+        condition13 = (pg[0][0][2] == 0) and (pg[1][0][2] == 0) and (pg[2][0][2] == 0)
+        if condition12 and condition13:
+            return 1
+    return 0

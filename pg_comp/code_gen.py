@@ -1,4 +1,4 @@
 from math_mat_code_gen import *
-label = "n02_hR"
+label = "n15_tI"
 size = 2000
-print_pg_as_mat(label, size)
+print_simple_pg_as_mat(label, size)

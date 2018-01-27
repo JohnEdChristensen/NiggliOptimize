@@ -89,3 +89,12 @@ def test_check_similarities():
 
 def test_find_equivalent_basis():
     basis = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+def test_get_URT():
+    pg_identity = [[[1, 0, 0], [0, 1, 0], [0, 0, 1]],[[1, 0, 0], [0, 1, 0], [0, 0, 1]]]
+    assert 1 == get_URT(pg_identity)
+    pg1 = [[[1, 0, 1], [0, 1, 0], [0, 0, 1]],[[1, 0, 0], [0, 1, 0], [0, 0, 1]]]
+    assert 0 == get_URT(pg1)
+    pg2 = [[[0, 0, 0], [0, 0, 0], [0, 0, 0]],[[0, 0, 0], [0, 0, 0], [0, 0, 0]]]
+    assert 1 == get_URT(pg2)
+    pg3 = [[[1, 0, 0], [0, 1, 0], [0, 0, 1]],[[1, 0, 0], [0, 1, 1], [0, 0, 1]]]    
+    assert 0 == get_URT(pg3)

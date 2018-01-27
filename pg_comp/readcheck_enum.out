@@ -1,8 +1,8 @@
 Title: Sypgstem                                                                        
 Lattice type (bulk or surface): BULK
- -0.256  -0.512   1.256
-  1.443   0.000   1.443
-  0.923   1.845   0.077
+ -1.791   1.000   1.000
+ -1.472  -1.414   0.000
+  0.791  -1.000   1.000
 Number of labels:  2
 Number of d-vectors:   1
   0.0000   0.0000   0.0000 0/1/

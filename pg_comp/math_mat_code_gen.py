@@ -49,20 +49,20 @@ def format_pg(matrix_list):
 
 def format_basis(basis):
     output = ""
-    output += "a1 = {" + str(basis[0][0]) + "," + str(basis[0][1]) + "," + str(basis[0][2]) + "}" + "\n"
-    output += "a2 = {" + str(basis[1][0]) + "," + str(basis[1][1]) + "," + str(basis[1][2]) + "}" + "\n"
-    output += "a3 = {" + str(basis[2][0]) + "," + str(basis[2][1]) + "," + str(basis[2][2]) + "}" + "\n"
+    output += "a1 = {" + str(basis[0][0]) + "," + str(basis[0][1]) + "," + str(basis[0][2]) + "};" + "\n"
+    output += "a2 = {" + str(basis[1][0]) + "," + str(basis[1][1]) + "," + str(basis[1][2]) + "};" + "\n"
+    output += "a3 = {" + str(basis[2][0]) + "," + str(basis[2][1]) + "," + str(basis[2][2]) + "};" + "\n"
     return output
 
 
 def gen_mat_code(basis):  # pragma: no cover
-    edit_struct_enum(basis, "struct_enum.in")
+    edit_struct_enum("struct_enum.in",basis)
     os.system("pg.x > pgx_out.txt")
     matrix_list = read_pg_out("pgx_out.txt")
     output = format_basis(basis)
     output += format_pg(matrix_list)
     return output
-def print_pg_as_mat(label, size, URT):
+def print_pg_as_mat(label, size):
     pgs = load_pg_list(label)
     print len(pgs)
     unique_pgs,indicies = numpy.unique(pgs, axis=0, return_index=True)
@@ -76,3 +76,66 @@ def print_pg_as_mat(label, size, URT):
         print label + ": " + str(i)
         print format_basis(transforms[indicies[i]])
         print format_pg(unique_pgs[i])
+def print_URT_pg_as_mat(label, size):
+    pgs = load_pg_list(label)
+    print len(pgs)
+    unique_pgs,indicies = numpy.unique(pgs, axis=0, return_index=True)
+    print len(unique_pgs)
+    transforms = load_transform_list(label)
+    URT_pgs = []
+    URT_indicies = []
+    for i in range(0,len(unique_pgs)):
+        if get_URT(unique_pgs[i]):
+            URT_pgs.append(unique_pgs[i])
+            URT_indicies.append(i)
+                
+    if size > len(URT_pgs):
+        size = len(URT_pgs)
+        
+    print "Generating " + str(size) + " URT point groups"
+    for i in range(0,size):
+        print label + ": " + str(i)
+        print format_basis(transforms[URT_indicies[i]])
+        print format_pg(URT_pgs[i])
+def print_simple_pg_as_mat(label, size):
+    pgs = load_pg_list(label)
+    print len(pgs)
+    unique_pgs,indicies = numpy.unique(pgs, axis=0, return_index=True)
+    print len(unique_pgs)
+    transforms = load_transform_list(label)
+    simple_pgs = []
+    simple_indicies = []
+    for i in range(0,len(unique_pgs)):
+        if get_simple_pgs(unique_pgs[i]):
+            simple_pgs.append(unique_pgs[i])
+            simple_indicies.append(i)
+                
+    if size > len(simple_pgs):
+        size = len(simple_pgs)
+        
+    print "Generating " + str(size) + " URT point groups"
+    for i in range(0,size):
+        print label + ": " + str(i)
+        print format_basis(transforms[simple_indicies[i]])
+        print format_pg(simple_pgs[i])
+def print_single_pg_as_mat(matrix):
+    pgs = load_pg_list(label)
+    print len(pgs)
+    unique_pgs,indicies = numpy.unique(pgs, axis=0, return_index=True)
+    print len(unique_pgs)
+    transforms = load_transform_list(label)
+    simple_pgs = []
+    simple_indicies = []
+    for i in range(0,len(unique_pgs)):
+        if get_simple_pgs(unique_pgs[i]):
+            simple_pgs.append(unique_pgs[i])
+            simple_indicies.append(i)
+                
+    if size > len(simple_pgs):
+        size = len(simple_pgs)
+        
+    print "Generating " + str(size) + " URT point groups"
+    for i in range(0,size):
+        print label + ": " + str(i)
+        print format_basis(transforms[simple_indicies[i]])
+        print format_pg(simple_pgs[i])
