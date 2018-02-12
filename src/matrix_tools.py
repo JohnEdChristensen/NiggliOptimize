@@ -8,6 +8,19 @@ def calculate_transform(transform, basis):
     # return numpy.transpose(transformed_matrix).tolist()
     return transformed_matrix
 
+def create_nxn_matrices(n):
+    """
+        Returns a list of all possible nxn matrices with coefficients of
+        -1, 0, or 1
+        list contains 3^n elements
+    """
+    matrix_form = []
+    matrices_list = itertools.product({-1, 0, 1}, repeat=(n * n))
+    for matrix in matrices_list:
+        matrix_form.append(numpy.reshape(numpy.array(matrix), (n, n)))
+
+    print "Created " + str(len(matrix_form)) + " Matrices"
+    return matrix_form
 
 def create_matrix(s1, s2, s3):
     """

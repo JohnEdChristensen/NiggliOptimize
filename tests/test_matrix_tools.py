@@ -6,12 +6,14 @@ import numpy
 import os
 from pg_comp.matrix_tools import *
 
+def test_create_nxn_matrices():
+    assert 3 == len(create_nxn_matrices(1))
+    assert 81 == len(create_nxn_matrices(2))
 
 def test_det_is_n():
     assert 1 == det_is_n(1, [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
     assert 0 == det_is_n(2, [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
     assert 1 == det_is_n(2, [[2, 0, 0], [0, 1, 0], [0, 0, 1]])
-
 
 def test_edit_struct_enum():
     edit_struct_enum("pg_comp/struct_enum.in", [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
