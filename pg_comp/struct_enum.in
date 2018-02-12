@@ -1,14 +1,15 @@
-Sypgstem 
+Sypgstem
 bulk
-1.1	1.1	1
-1.1	1	1
-1.1	1	1
+0.331088	2.96676	-0.29785
+0.668912	-1.96676	1.29785
+0.61803	-1.618034	-2.0
+
 2
-1 
-0.0 0.0 0.0  0/1 
-1 500
-0.001 
-part list of labelings (including incomplete labelings) is used 
-# Concentration ranges 
-5 5 10 
+1
+0.0 0.0 0.0  0/1
+1 50
+0.001
+part list of labelings (including incomplete labelings) is used
+# Concentration ranges
+5 5 10
 5 5 10

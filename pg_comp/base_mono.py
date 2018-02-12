@@ -246,3 +246,86 @@ def base_mono_37_39_41(n):
                         spHNFs.append(HNF)
                                 
     return spHNFs
+def base_mono_14(n):
+    """Finds the symmetry preserving HNFs for the base centered monoclinic
+    lattices with a determinant of n. Assuming A =
+    a1 = {-1.0,1.0,0.0};
+    a2 = {0.0,2.0,0.0};
+    a3 = {0.5,0.0,2.0};
+
+    Args:
+        n (int): The determinant of the HNFs.
+
+    Returns:
+        spHNFs (list of lists): The symmetry preserving HNFs.
+
+    """
+
+    from opf_python.universal import get_HNF_diagonals
+
+    diags = get_HNF_diagonals(n)
+
+    spHNFs = []
+    
+    for diag in diags:
+        a = diag[0]
+        c = diag[1]
+        f = diag[2]
+
+        if f%2==0:
+            es = [0,f//2.]
+        else:
+            es = [0]
+
+        for e in es:
+            for b in range(c):
+                b12 = (a + 2 * b)
+                if b12%c == 0:
+                    g12 = b12 * e /c
+                    if g12%f == 0:
+                        for d in range(f):
+                            HNF = [[a,0,0],[b,c,0],[d,e,f]]
+                            spHNFs.append(HNF)
+                            
+                                
+    return spHNFs
+def base_mono_10_17(n):
+    """Finds the symmetry preserving HNFs for the base centered monoclinic
+    lattices with a determinant of n. Assuming for basis 10 A =
+    [[-1.46391, 0.  , 1.96391], [ 1.  , 1.  , 1.  ], [ 0.  , 2.  , 0.
+    ]], for basis 17 A = [[-0.05387 , -0.61088 , 2.51474 ], [ 1.  , 1.
+    , 1.  ], [ 1.809568, -0.15957 , 0.  ]].
+
+    Args:
+        n (int): The determinant of the HNFs.
+
+    Returns:
+        spHNFs (list of lists): The symmetry preserving HNFs.
+
+    """
+
+    from opf_python.universal import get_HNF_diagonals
+
+    diags = get_HNF_diagonals(n)
+
+    spHNFs = []
+    
+    for diag in diags:
+        a = diag[0]
+        c = diag[1]
+        f = diag[2]
+        
+        if (2*c)%a == 0:
+            for b in range(c):
+                if 2*b%a == 0:
+                    b11 = 2*b -(2*b*b/float(a))
+                    if b11%c == 0:
+                        for e in range(f):
+                            for d in range(f):
+                                g11 = -a +b + e*d - (2*b*d/float(a)) - (b11*e)/float(c)
+                                g21 = c - (2*c*d/float(a))+(2*b*e/float(a))
+                                if g11%f == 0 and g21%f ==0:
+                                    HNF = [[a,0,0],[b,c,0],[d,e,f]]
+                                    spHNFs.append(HNF)
+                                
+    return spHNFs

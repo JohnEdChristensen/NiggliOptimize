@@ -53,8 +53,10 @@ def read_pg_out(pgx_path):
     size = float(pgx_path.readline().split()[2])
     if size == 4 or size == 48 or size == 12:
         size = 2
-    if size == 8 or size == 16:
+    elif size == 8 or size == 16:
         size = 3
+    else:
+        print "ERROR PG SIZE UNKNOWN: " + str(size)
 
     matrix_list = []
 
@@ -123,6 +125,17 @@ def load_transform_list(label):
     #size = len(transform_data) / 6960 / 3
     transform_data = numpy.reshape(transform_data, (6960, 3, 3))
     return transform_data
+def is_one(pg):
+    is_one = 1
+    for i in pg:
+        for k in i:
+            for j in k:
+                for l in k:
+                    if l != 1 and l != -1 and l != 0:
+                        is_one = 0
+    return is_one
+
+
 def get_URT(pg):
     """ takes in 2 or 3 3x3 matricies
         returns one if all have 0's in the upper rigth of the matrix

@@ -1,6 +1,7 @@
 import pytest
 import numpy as np
 
+"""
 def test_mono_39():
     from pg_comp.base_mono import *
     with open("tests/test_output/base_mono_1_200_n.out","r") as f:
@@ -26,7 +27,7 @@ def test_mono_39():
     
     for t in srHNFs:
         assert t in brute 
-"""
+
 def test_mono_29():
     from pg_comp.base_mono import *
     with open("tests/test_output/base_mono_1_200_n.out","r") as f:

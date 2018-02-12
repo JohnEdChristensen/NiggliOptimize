@@ -14,6 +14,7 @@ myHNFs = base_mono_37_39_41(8)
 
 lat_name, nig_n, lat_fam, basis = niggli_id(numpy.transpose(parent))
 print nig_n
+print basis
 Bu = reduced_cell(numpy.transpose(parent))
 Nu = Bu.niggli
 Cu = Bu.C
@@ -22,13 +23,17 @@ Bo = reduced_cell(basis)
 No = Bo.niggli
 Co = Bo.C
 
+
+
 supercells = transform_supercells(myHNFs, No, Nu, Co, Cu, basis)
 expectedSC = find_supercells(numpy.transpose(parent),8,exact=True)
+"""
 for e in supercells:
     print e
 print "\n--------------------------------------------\n"
 for e in expectedSC:
     print e
+"""
 
 #print supercells
 
@@ -41,3 +46,4 @@ for i in supercells:
     for j in i:
         for k in j:
             print k
+

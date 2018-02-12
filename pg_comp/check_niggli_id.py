@@ -3,10 +3,9 @@ import numpy
 
 basis = numpy.loadtxt("Data/NiggliTransforms/" + "n07_tI" + "_Transformed.txt")
 basis = numpy.reshape(basis, (len(basis) / 3, 3, 3))
-test =[ [[-1.79092,-1.47209,0.790922],[1.0,-1.41421,-1.0],[1.0,0.0,1.0]]]
+A = [[[0.331088,2.96676,-0.29785],[0.668912,-1.96676,1.29785],[0.61803,-1.618034,-2.0]]]
 
 #test = basis[1]
-for e in test:
-    e = numpy.transpose(e)
+for e in A:
     print e
-    print niggli_lat_id.niggli_id(e)
+    print niggli_lat_id.niggli_id(numpy.transpose(e))
