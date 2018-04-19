@@ -4,7 +4,7 @@ Tests The functions in PGComp/Matrixtools.py
 import pytest
 import numpy
 import os
-from pg_comp.matrix_tools import *
+from spHNF_manip.matrix_tools import *
 
 def test_create_nxn_matrices():
     assert 3 == len(create_nxn_matrices(1))
@@ -16,26 +16,26 @@ def test_det_is_n():
     assert 1 == det_is_n(2, [[2, 0, 0], [0, 1, 0], [0, 0, 1]])
 
 def test_edit_struct_enum():
-    edit_struct_enum("pg_comp/struct_enum.in", [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-    with open('tests/IdentityTestStruct_enum.in', 'r') as struct_enum:
+    edit_struct_enum("tests/struct_enum.in", [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+    with open('tests/test_output/IdentityTestStruct_enum.in', 'r') as struct_enum:
         expected_struct_data1 = struct_enum.readlines()
-    with open('pg_comp/struct_enum.in', 'r') as struct_enum:
+    with open('tests/struct_enum.in', 'r') as struct_enum:
         struct_data1 = struct_enum.readlines()
     assert struct_data1 == expected_struct_data1
 
-    edit_struct_enum("pg_comp/struct_enum.in", [[1.1, 1.1, 1], [1.1, 1, 1], [1.1, 1, 1]])
-    with open('tests/TestStruct_enum1.in', 'r') as struct_enum:
+    edit_struct_enum("tests/struct_enum.in", [[1.1, 1.1, 1], [1.1, 1, 1], [1.1, 1, 1]])
+    with open('tests/test_output/TestStruct_enum1.in', 'r') as struct_enum:
         expected_struct_data2 = struct_enum.readlines()
-    with open('pg_comp/struct_enum.in', 'r') as struct_enum:
+    with open('tests/struct_enum.in', 'r') as struct_enum:
         struct_data2 = struct_enum.readlines()
     assert struct_data2 == expected_struct_data2
 
 
 def test_read_pg_out():
-    data1 = read_pg_out("tests/pgx_outTest1.txt")
+    data1 = read_pg_out("tests/test_output/pgx_outTest1.txt")
     expected_data1 = [[[-1, 0, 0], [0, 0, -1], [0, -1, 0]], [[0, 0, 1], [-1, 0, 0], [0, 1, 0]]]
     assert expected_data1 == data1
-    data2 = read_pg_out("tests/pgx_outTest2.txt")
+    data2 = read_pg_out("tests/test_output/pgx_outTest2.txt")
     expected_data2 = [[[-1, 0, 0], [-1, 0, 1], [-1, 1, 0]], [[-1, 0, 1], [-1, 0, 0], [-1, 1, 0]],
                      [[-1, 0, 0], [0, -1, 0], [0, 0, -1]]]
     assert expected_data2 == data2
@@ -62,17 +62,17 @@ def test_create_matrix():
 
 def test_save_matrix():
     identity = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
-    save_matrix(identity, "tests/saveMatrixTest1.txt")
-    with open('tests/saveMatrixTest1.txt', 'r') as Data:
+    save_matrix(identity, "tests/test_output/saveMatrixTest1.txt")
+    with open('tests/test_output/saveMatrixTest1.txt', 'r') as Data:
         data1 = Data.readlines()
-    with open("tests/saveMatrixExpected1.txt", 'r') as Data:
+    with open("tests/test_output/saveMatrixExpected1.txt", 'r') as Data:
         expected_data1 = Data.readlines()
     assert data1 == expected_data1
     m1 = [[1.1111111, 0, 0], [0, 1, 0], [0, 0, 1]]
-    save_matrix(m1, "tests/saveMatrixTest2.txt")
-    with open('tests/saveMatrixTest2.txt', 'r') as Data:
+    save_matrix(m1, "tests/test_output/saveMatrixTest2.txt")
+    with open('tests/test_output/saveMatrixTest2.txt', 'r') as Data:
         data2 = Data.readlines()
-    with open("tests/saveMatrixExpected2.txt", 'r') as Data:
+    with open("tests/test_output/saveMatrixExpected2.txt", 'r') as Data:
         expected_data2 = Data.readlines()
     assert data2 == expected_data2
 
