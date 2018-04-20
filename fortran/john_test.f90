@@ -5,6 +5,74 @@ Module sp_hnfs
   integer, parameter:: si=selected_int_kind(1) ! very short integer -10..10 range
   integer, parameter:: li=selected_int_kind(18) ! Big integer -10^18..10^18 range
 CONTAINS
+
+  SUBROUTINE fco_16(n,spHNFs)
+    integer, intent(in) :: n
+    integer, allocatable, intent(out) :: spHNFs(:,:,:)
+
+    integer, pointer :: diagonals(:,:) => null()
+    real(dp) :: a,b,c,d,e,f
+    integer :: nds, i, nhnfs, status, j, k, z
+    integer(li) :: total_hnfs
+    integer, allocatable :: temp_HNFs(:,:,:)
+
+    real(dp) :: beta11, beta12, gamma11, gamma12, gamma21
+    real(dp), allocatable :: bs(:)
+
+    call get_HNF_diagonals(n,diagonals)
+
+    nds = size(diagonals,2)
+    nhnfs = 0
+    total_hnfs = 0
+
+    do i = 1,nds
+       total_hnfs = total_hnfs + diagonals(2,i)*diagonals(3,i)**2
+    end do
+
+    allocate(temp_HNFs(3,3,total_hnfs),STAT=status)
+    if (status/=0) stop "Failed to allocate memory in fco_16."
+
+    do i =1,nds
+       a = diagonals(1,i)
+       c = diagonals(2,i)
+       f = diagonals(3,i)
+
+       if (MOD(c,2.0_dp)==0) then
+          allocate(bs(2))
+          bs = (/0.0_dp,real(int(c)/2,dp)/)
+       else
+          allocate(bs(1))
+          bs = (/0.0_dp/)
+       end if
+       do j=1, size(bs)
+         do k=0, int(f-1)
+           b = bs(j)
+           e = real(k,dp)
+           gamma11 = -b-2*b*e/c
+           gamma21 = c+2*e
+           if(MOD(gamma11,f)==0 .and. MOD(gamma21,f)==0)then
+             do z=0,int(f-1)
+               d = real(z,dp)
+               gamma12 = a+2*d-(2*b*e/c)
+               if(MOD(gamma12,f)==0)then
+                 nhnfs = nhnfs + 1
+                 temp_HNFs(:,:,nhnfs) = reshape((/ int(a), int(b), int(d), &
+                    0, int(c), int(e), &
+                    0, 0, int(f)/),(/3,3/))
+               end if
+             end do
+           end if
+       end do
+    end do
+    deallocate(bs)
+  end do
+
+    allocate(spHNFs(3,3,nhnfs))
+
+    spHNFs(:,:,1:nhnfs) = temp_HNFs(:,:,1:nhnfs)
+
+  end SUBROUTINE fco_16
+
   SUBROUTINE bct_6_7_15_18(n,spHNFs)
     integer, intent(in) :: n
     integer, allocatable, intent(out) :: spHNFs(:,:,:)
@@ -112,16 +180,15 @@ CONTAINS
        c = diagonals(2,i)
        f = diagonals(3,i)
 
-       if (MOD(f,a)==0)then
-         if (MOD(c,2.0_dp)==0) then
-            allocate(bs(2))
-            bs = (/0.0_dp,real(int(c)/2,dp)/)
-         else
-            allocate(bs(1))
-            bs = (/0.0_dp/)
-         end if
-         do j=1, size(bs)
-           b = bs(j)
+       if (MOD(c,2.0_dp)==0) then
+          allocate(bs(2))
+          bs = (/0.0_dp,real(int(c)/2,dp)/)
+       else
+          allocate(bs(1))
+          bs = (/0.0_dp/)
+       end if
+       do j=1, size(bs)
+
            beta32 = -f+b*f/a
            if(MOD(beta32,c)==0) then
              do k=0, int(f-1)
@@ -149,8 +216,7 @@ CONTAINS
             end if
           end do
        deallocate(bs)
-     end if
-    end do
+     end do
 
     allocate(spHNFs(3,3,nhnfs))
 
@@ -183,10 +249,10 @@ END Module sp_hnfs
 
 program test
 use sp_hnfs
-  integer :: n = 100, arrSize,i = 1
+  integer :: n = 1000, arrSize,i = 1
   integer, allocatable :: spHNFs(:,:,:)
 
-  call bct_6_7_15_18(n,spHNFs)
+  call fco_16(n,spHNFs)
   arrSize = size(spHNFs,3)
   open (unit = 1, file = 'fort_spHNFs.txt', form='formatted')
   write(*,*), arrSize

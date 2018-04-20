@@ -1,14 +1,14 @@
 from opf_python import base_mono
 from opf_python import rhom
-from opf_python import body_tet
+from opf_python import face_ortho
 import numpy as np
 
 folder = "/home/john/msg/opf_kgrids/src/fortran/tests/spHNFs/{0}.{1}_{2}"
 
-n = 456
-name = "basecm_10_14_17_27_37_39_41"
-spHNFs = base_mono.base_mono_10_14_17_27_37_39_41(n)
-count = 3
+n = 556
+name = "fco_16"
+spHNFs = face_ortho.face_ortho_16(n)
+count = 5
 
 with open(folder.format("n.in",name,count),"w+") as f:
    f.write('# <fortpy version="1" template="integer"></fortpy>\n')
