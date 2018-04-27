@@ -1,32 +1,33 @@
-from opf_python import base_mono
-from opf_python import body_tet
-from opf_python import face_ortho
+from opf_python import hx
+import sys
 import numpy as np
-fort_spHNFs = np.loadtxt("fort_spHNFs.txt")
-fort_spHNFs = np.reshape(fort_spHNFs, (len(fort_spHNFs)/3, 3, 3))
+import os
+if(len(sys.argv) == 2):
+    n = int(sys.argv[1])
+else:
+    n = 1024
+os.system("gfortran int_sp_hnfs.f90")
 
-for i in range(len(fort_spHNFs)):
-    fort_spHNFs[i] = np.transpose(fort_spHNFs[i])
+for j in range(1,n):
+    os.system("./a.out " + str(j))
 
-python_spHNFs = face_ortho.face_ortho_16(1000)
+    fort_spHNFs = np.loadtxt("fort_spHNFs.txt")
+    fort_spHNFs = np.reshape(fort_spHNFs, (len(fort_spHNFs)/3, 3, 3))
 
-print len(fort_spHNFs)
-print len(python_spHNFs)
+    for i in range(len(fort_spHNFs)):
+        fort_spHNFs[i] = np.transpose(fort_spHNFs[i])
 
-correct = True
-a = fort_spHNFs.tolist()
-b = python_spHNFs
-for e in b:
-    #print e
-    if not(e in a):
-        print "python not in real"
-        # print e
-        correct = False
+    python_spHNFs = hx.hex_12(j)
 
-for e in a:
-    #print e
-    if not(e in b):
-        print "real not in python"
-        # print e
-        correct = False
-print correct
+    #print len(fort_spHNFs)
+    #print len(python_spHNFs)
+
+    correct = True
+    a = fort_spHNFs.tolist()
+    b = python_spHNFs
+    for i in range(len(a)):
+        if(a[i] != b[i]):
+            correct = False
+
+    if not correct:
+        print "Error at Det size: ", j

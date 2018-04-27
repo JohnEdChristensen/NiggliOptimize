@@ -5,7 +5,6 @@ Module sp_hnfs
   integer, parameter:: si=selected_int_kind(1) ! very short integer -10..10 range
   integer, parameter:: li=selected_int_kind(18) ! Big integer -10^18..10^18 range
 CONTAINS
-
   SUBROUTINE fco_16(n,spHNFs)
     integer, intent(in) :: n
     integer, allocatable, intent(out) :: spHNFs(:,:,:)
@@ -16,7 +15,7 @@ CONTAINS
     integer(li) :: total_hnfs
     integer, allocatable :: temp_HNFs(:,:,:)
 
-    real(dp) :: beta11, beta12, gamma11, gamma12, gamma21
+    real(dp) :: gamma11, gamma12, gamma21
     real(dp), allocatable :: bs(:)
 
     call get_HNF_diagonals(n,diagonals)
@@ -39,7 +38,7 @@ CONTAINS
 
        if (MOD(c,2.0_dp)==0) then
           allocate(bs(2))
-          bs = (/0.0_dp,real(int(c)/2,dp)/)
+          bs = (/real(int(c)/2,dp),0.0_dp/)
        else
           allocate(bs(1))
           bs = (/0.0_dp/)
@@ -72,6 +71,7 @@ CONTAINS
     spHNFs(:,:,1:nhnfs) = temp_HNFs(:,:,1:nhnfs)
 
   end SUBROUTINE fco_16
+
 
   SUBROUTINE bct_6_7_15_18(n,spHNFs)
     integer, intent(in) :: n
@@ -249,7 +249,7 @@ END Module sp_hnfs
 
 program test
 use sp_hnfs
-  integer :: n = 1000, arrSize,i = 1
+  integer :: n = 10, arrSize,i = 1
   integer, allocatable :: spHNFs(:,:,:)
 
   call fco_16(n,spHNFs)

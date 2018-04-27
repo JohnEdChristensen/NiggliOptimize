@@ -5,10 +5,10 @@ import numpy as np
 
 folder = "/home/john/msg/opf_kgrids/src/fortran/tests/spHNFs/{0}.{1}_{2}"
 
-n = 556
+n = 10
 name = "fco_16"
 spHNFs = face_ortho.face_ortho_16(n)
-count = 5
+count = 1
 
 with open(folder.format("n.in",name,count),"w+") as f:
    f.write('# <fortpy version="1" template="integer"></fortpy>\n')
